@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 
 public class AutofitRecyclerView extends RecyclerView {
     private GridLayoutManager manager;
@@ -42,10 +43,29 @@ public class AutofitRecyclerView extends RecyclerView {
     @Override
     protected void onMeasure(int widthSpec, int heightSpec) {
         super.onMeasure(widthSpec, heightSpec);
-        if (columnWidth > 0) {
+       /* if (columnWidth > 0) {
             int spanCount = Math.max(1, getMeasuredWidth() / columnWidth);
             manager.setSpanCount(spanCount);
+        }*/
+        float density  = getResources().getDisplayMetrics().density;
+        float w = getMeasuredWidth() / density;
+        float h = getMeasuredHeight() / density;
+        int span;
+        if (w > h) {
+            if (w > 1000) {
+                span = 3;
+            } else if (w > 450) {
+                span = 2;
+            } else span = 1;
+        } else {
+            if (w > 500) {
+                span = 2;
+            } else  {
+                span = 1;
+            }
         }
+        manager.setSpanCount(span);
+        Log.d("Span Log", "width = " + w + " span = " + span);
     }
 }
 
