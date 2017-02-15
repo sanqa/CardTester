@@ -64,6 +64,7 @@ public class AutofitRecyclerView extends RecyclerView {
                 span = 1;
             }
         }
+        span = 4;
         manager.setSpanCount(span);
         Log.d("Span Log", "width = " + w + " span = " + span);
     }
